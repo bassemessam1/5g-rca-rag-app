@@ -1,0 +1,15 @@
+langchain
+langchain-openai
+langchain-pinecone
+langchain-cohere
+openai
+pinecone
+cohere
+fastapi
+uvicorn
+redis
+langfuse
+ragas
+pandas
+python-dotenv
+tqdm
