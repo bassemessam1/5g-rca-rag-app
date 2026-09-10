@@ -1,11 +1,24 @@
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from langchain_community.cache import RedisSemanticCache
+import redis
+from langchain_core.globals import set_llm_cache
 from dotenv import load_dotenv
-from retriever import build_retriever
+from .retriever import build_retriever
+import os
 
 load_dotenv()
+
+set_llm_cache(RedisSemanticCache(
+    redis_url=os.getenv("REDIS_URL", "redis://localhost:6379"),
+    embedding=OpenAIEmbeddings(
+        model="text-embedding-3-large", 
+        dimensions=1024
+    ),
+    score_threshold=0.5,
+))
 
 SYSTEM_PROMPT = """ You are a 5G network troubleshooting expert. 
 Answer the user's question using ONLY the context provided below.
@@ -42,5 +55,5 @@ chain = (
 )
 
 
-response = chain.invoke("Why does throughput drop when vehicle speed is high?")
-print(response)
+#response = chain.invoke("Why does throughput drop when vehicle speed is high?")
+#print(response)
