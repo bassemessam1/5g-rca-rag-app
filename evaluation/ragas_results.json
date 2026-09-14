@@ -1,0 +1,121 @@
+{
+  "faithfulness": 1.0,
+  "answer_relevancy": 0.9565217391304348,
+  "per_question": [
+    {
+      "question": "How can the serving cell's downtilt angle affect weak coverage?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What happens to cell edge users when downtilt is too steep?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "Why does increasing downtilt reduce coverage distance?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What does cause overshooting of the serving cell?",
+      "faithfulness": 1.0,
+      "relevancy": 0.8
+    },
+    {
+      "question": "What happens when the cell's coverage distance exceeds 1 km?",
+      "faithfulness": 1.0,
+      "relevancy": 0.8
+    },
+    {
+      "question": "What are the relationship between the overshooting and the cell's coverage?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "Why does the neighbour cell provide higher throughput?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What could be the reason for the neighbour cells offering higher throughput?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "Why is the serving cell offering lower throughput than the neighbour cell?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What is the cause of the overlapping coverage?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "How can Non-colocated co-frequency neighbouring cells cause overlapping?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "How co-frequency neighbouring cells affect the overlapping?",
+      "faithfulness": 1.0,
+      "relevancy": 0.8
+    },
+    {
+      "question": "How do multiple handovers affect the performance?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What causes the degraded performance?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What happens with frequent handovers?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What does cause the interference?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What happens if the serving and neighbouring cells have the same PCI mod 30?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "How is the similar PCI mod affecting the interference?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "Why is the throughput drop when the vehicle is moving fast?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What happens if the vehicle speed exceeds 40 km/h?",
+      "faithfulness": 1.0,
+      "relevancy": 0.6
+    },
+    {
+      "question": "Why is the vehicle affecting the throughput?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "How is the scheduled RBs affecting throughput?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    },
+    {
+      "question": "What is the threshold of the average RBs to affect the throughput?",
+      "faithfulness": 1.0,
+      "relevancy": 1.0
+    }
+  ]
+}

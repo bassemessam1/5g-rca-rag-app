@@ -36,11 +36,11 @@ def get_category(answer_code):
     return category
 
 def format_document(record):
-    question_text = record['question'].split('\n')
+    question_text = record['question']
     answer_code   = record['answer']
 
     description       = extract_root_cause_description(question_text, answer_code)
-    engineering_table = extract_section(question_text, "Given")
+    engineering_table = extract_section(question_text, "Engeneering parameters data as follows")
 
     drivetest_table   = extract_section(question_text, "User plane drive test data as follows：")
 
@@ -76,7 +76,7 @@ documents = build_documents(telelogs_train)
 #doc = format_document(telelogs_train[0])
 #print(doc)
 #print(f"\nDocument length: {len(doc)} characters / ~{len(doc)//4} tokens")
-print(f"Total documents: {len(documents)}")
+#print(f"Total documents: {len(documents)}")
 #print(f"\nFirst Document page_content:\n{documents[0].page_content}")
 #print(f"\nFirst document metadata:\n{documents[0].metadata}")
 

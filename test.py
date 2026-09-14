@@ -1,27 +1,27 @@
-import os
-from dotenv import load_dotenv
+import json
+from ingestion.formatter import extract_section
 
-load_dotenv()
+with open('data/raw/telelogs_test.json') as f:
+    test_data = json.load(f)
 
-keys = [
-    "OPENAI_API_KEY",
-    "PINECONE_API_KEY",
-    "PINECONE_INDEX_NAME",
-    "PINECONE_NAMESPACE",
-    "COHERE_API_KEY",
-]
+def build_query(question_text):
+    lines = question_text.split('\n')
+    engineering = extract_section(lines, "Engeneering parameters data as follows")
+    drivetest   = extract_section(lines, "User plane drive test data as follows：")
+    return f"Engineering Parameters:\n{engineering}\n\nDrive Test Data:\n{drivetest}"
 
-print("Checking environment variables...")
-all_good = True
-for key in keys:
-    val = os.getenv(key, "")
-    if val:
-        print(f"  OK  {key}")
-    else:
-        print(f"  MISSING  {key}")
-        all_good = False
+# for i in range(3):
+#     query = build_query(test_data[i]['question'])
+#     print(f"\n=== Record {i} | \n Ground truth: {test_data[i]['answer']} ===")
+#     print(query)
+#     print("---")
 
-if all_good:
-    print("\nAll keys set. Ready for Phase 2.")
-else:
-    print("\nFill in the missing keys in your .env file.")
+
+for i in range(5):
+    q = test_data[i]['question']
+    lines = q.split('\n')
+    # Find the timestamp line
+    for line in lines:
+        if '2025' in line and '|' in line:
+            print(f"Record {i} | Answer: {test_data[i]['answer']} | First timestamp: {line[:50]}")
+            break
