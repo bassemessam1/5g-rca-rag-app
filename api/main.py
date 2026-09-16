@@ -3,7 +3,7 @@ import json
 import re
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -14,11 +14,52 @@ import asyncio
 
 load_dotenv()
 
+def validate_query(question: str):
+    if not question or len(question.strip()) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+    if len(question) < 10:
+        raise HTTPException(
+            status_code=400,
+            detail="Question is too short to be meaningful"
+        )
+    if len(question) > 2000:
+        raise HTTPException(
+            status_code=400,
+            detail="Question exceeds maximum length of 2000 characters"
+        )
+
+def validate_telemetry(request: TelemetryRequest):
+    if not request.engineering_parameters or len(request.engineering_parameters.strip()) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Engineering parameters cannot be empty"
+        )
+    if not request.drive_test_data or len(request.drive_test_data.strip()) == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Drive test data cannot be empty"
+        )
+    if "gNodeB" not in request.engineering_parameters and "Cell ID" not in request.engineering_parameters:
+        raise HTTPException(
+            status_code=400,
+            detail="Engineering parameters must contain valid gNodeB configuration data"
+        )
+    if "Timestamp" not in request.drive_test_data and "RSRP" not in request.drive_test_data:
+        raise HTTPException(
+            status_code=400,
+            detail="Drive test data must contain valid measurement data"
+        )
+
+
 app = FastAPI(title="5G RCA RAG API")
 
 
 @app.post("/diagnose/query")
 async def diagnose(request: QueryRequest):
+    validate_query(request.question)
     retriever = build_retriever()
     docs = await asyncio.to_thread(retriever.invoke, request.question)
     context = format_context(docs)
@@ -37,6 +78,7 @@ async def diagnose(request: QueryRequest):
 
 @app.post("/diagnose/telemetry", response_model=DiagnosisResponse)
 async def diagnose_telemetry(request: TelemetryRequest):
+    validate_telemetry(request)
     clean_query = (
         f"Engineering Parameters:\n{request.engineering_parameters}"
         f"\n\nDrive Test Data:\n{request.drive_test_data}"
