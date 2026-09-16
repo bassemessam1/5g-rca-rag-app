@@ -30,44 +30,44 @@ The system provides two interfaces: a **natural language query endpoint** for ne
 │                      RETRIEVAL PIPELINE                         │
 │                                                                 │
 │  1. Multi-Query Expansion                                       │
-│     GPT-4o-mini rephrases query into 3-4 variants              │
+│     GPT-4o-mini rephrases query into 3-4 variants               │
 │                      │                                          │
 │                       ▼                                         │
 │  2. Hybrid Vector Search                                        │
-│     Each variant → OpenAI text-embedding-3-large (1024d)       │
-│     → Pinecone ANN search → top-20 candidates                  │
+│     Each variant → OpenAI text-embedding-3-large (1024d)        │
+│     → Pinecone ANN search → top-20 candidates                   │
 │                      │                                          │
 │                       ▼                                         │
 │  3. Cohere Reranking                                            │
-│     Cross-encoder scores all 20 → returns top-5                │
+│     Cross-encoder scores all 20 → returns top-5                 │
 └──────────────────────────────────────────┬──────────────────────┘
                                            │
                                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                     GENERATION PIPELINE                         │
 │                                                                 │
-│  Top-5 documents formatted with [Source N - Root Cause: CX]    │
+│  Top-5 documents formatted with [Source N - Root Cause: CX]     │
 │                      │                                          │
 │                       ▼                                         │
-│  GPT-4o generates grounded answer with citations               │
+│  GPT-4o generates grounded answer with citations                │
 │                      │                                          │
 │                       ▼                                         │
-│  Redis Semantic Cache (score_threshold=0.2)                    │
+│  Redis Semantic Cache (score_threshold=0.2)                     │
 │  → Cache hit: return instantly                                  │
-│  → Cache miss: full pipeline execution                         │
+│  → Cache miss: full pipeline execution                          │
 └─────────────────────────────────────────────────────────────────┘
                                            │
                                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                       RESPONSE                                  │
 │                                                                 │
-│  /diagnose/query     → Streaming tokens (SSE)                  │
-│  /diagnose/telemetry → Structured JSON                         │
+│  /diagnose/query     → Streaming tokens (SSE)                   │
+│  /diagnose/telemetry → Structured JSON                          │
 │  {                                                              │
 │    "root_cause_code": "C7",                                     │
 │    "description":     "...",                                    │
 │    "confidence":      0.91,                                     │
-│    "timestamp":       "2025-09-14T14:00:00",                   │
+│    "timestamp":       "2025-09-14T14:00:00",                    │
 │    "citations":       [...],                                    │
 │    "input_summary":   {...}                                     │
 │  }                                                              │
@@ -117,7 +117,7 @@ The system diagnoses throughput degradation (below 600 Mbps) against 8 predefine
 ├── data/
 │   └── raw/
 │       ├── train.json          # 2,400 training scenarios
-│       └── test.json           # 864 test scenarios
+│       ├── test.json           # 864 test scenarios
 │       └── load_dataset.py     # loading dataset script from Huggingface 
 ├── ingestion/
 │   ├── formatter.py            # JSON → LangChain Documents
