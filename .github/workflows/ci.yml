@@ -3,8 +3,18 @@ name: RAG Evaluation CI
 on:
   push:
     branches: [main]
+    paths:
+      - "rag/**"
+      - "ingestion/**"
+      - "api/**"
+      - "evaluation/**"
   pull_request:
     branches: [main]
+    paths:
+      - "rag/**"
+      - "ingestion/**"
+      - "api/**"
+      - "evaluation/**"
 
 jobs:
   evaluate:
